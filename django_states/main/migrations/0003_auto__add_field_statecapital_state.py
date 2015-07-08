@@ -8,32 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'State'
-        db.create_table(u'main_state', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=100)),
-            ('abbreviation', self.gf('django.db.models.fields.CharField')(max_length=2)),
-        ))
-        db.send_create_signal(u'main', ['State'])
-
-        # Adding model 'StateCapital'
-        db.create_table(u'main_statecapital', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('state', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['main.State'])),
-            ('latitude', self.gf('django.db.models.fields.FloatField')()),
-            ('longitude', self.gf('django.db.models.fields.FloatField')()),
-            ('population', self.gf('django.db.models.fields.IntegerField')()),
-        ))
-        db.send_create_signal(u'main', ['StateCapital'])
+        # Adding field 'StateCapital.state'
+        db.add_column(u'main_statecapital', 'state',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['main.State']),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'State'
-        db.delete_table(u'main_state')
-
-        # Deleting model 'StateCapital'
-        db.delete_table(u'main_statecapital')
+        # Deleting field 'StateCapital.state'
+        db.delete_column(u'main_statecapital', 'state_id')
 
 
     models = {
