@@ -17,6 +17,8 @@ class StateAdmin(admin.ModelAdmin):
 	search_fields = ('name', )
 	inlines = [CityInline]
 
+
+
 admin.site.register(City, CityAdmin)
 admin.site.register(StateCapital, StateCapitalAdmin)
 admin.site.register(State, StateAdmin)
