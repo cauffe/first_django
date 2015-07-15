@@ -40,6 +40,12 @@ INSTALLED_APPS = (
     'main',
 )
 
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.eggs.Loader',
+)
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,6 +53,17 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    # 'django.contrib.messages.context_processors.messages'
+    'main.context_processors.states_menu'
 )
 
 ROOT_URLCONF = 'django_states.urls'
@@ -68,6 +85,13 @@ DATABASES = {
     }
 }
 
+
+
+TEMPLATE_DIRS = os.path.join(BASE_DIR, 'templates')
+
+# TEMPLATE_LOADERS = ('django.template.loaders.filesystem.Loader',
+#  'django.template.loaders.app_directories.Loader')
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -86,3 +110,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
