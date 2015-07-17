@@ -1,0 +1,24 @@
+
+<form method="POST" action="/city_search/">
+	{% csrf_token %}
+
+	{{ form.as_table }}
+
+	<input type="submit" value="Search" />
+
+</form>
+
+</br>
+</br>
+
+{{ valid }}
+
+</br>
+</br>
+
+{% for city in city_list %}
+
+	<a href="/cities/{{ city.pk }}">{{ city }}</a>
+	</br>
+
+{% endfor %}

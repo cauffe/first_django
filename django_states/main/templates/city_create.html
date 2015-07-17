@@ -1,0 +1,14 @@
+
+<form method="POST" action="/city_create/">
+	{% csrf_token %}
+
+	{{ form.as_table }}
+
+	<input type="submit" value="Save" />
+
+</form>
+
+</br>
+</br>
+
+{{ valid }}
