@@ -9,6 +9,8 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_states.settings")
 
 from main.models import State, City
 
+City.objects.all().delete()
+
 states = State.objects.all()
 
 
