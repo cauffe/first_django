@@ -1,5 +1,7 @@
 
 {% for state in state_list %}
-	{{ state }}
+	{{ state.name }}
+	</br>
+	<img src="{{ MEDIA_URL }}{{ state.state_map }}">
 	</br>
 {% endfor %}

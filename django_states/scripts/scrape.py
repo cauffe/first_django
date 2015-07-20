@@ -1,14 +1,22 @@
 #!/usr/bin/env python
 import urllib
+import urllib2
 from lxml import etree
 import StringIO
 import re, sys, os
+import requests
+from PIL import Image
+
+
 
 sys.path.append("..")
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_states.settings")
 
 from main.models import State, StateCapital
+from django.core.files.base import ContentFile
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
 #result = urllib.urlopen("http://164.100.47.132/LssNew/Members/Alphabaticallist.aspx")
 
 result = urllib.urlopen("http://www.50states.com/")
@@ -77,9 +85,47 @@ for link in links:
 
 	state_map_link_xpath = '//*[@id="collapseGovernment"]/div/ul/li[2]/div/a/@href'
 	state_map_link = tree.xpath(state_map_link_xpath)
-	print state_map_link[0]
 
-	state_page = urllib.urlopen("http://www.50states.com%s" % link)
+
+	state_page = urllib.urlopen(state_map_link[0])
+
+	state_page_html = state_page.read()
+
+	tree = etree.parse(StringIO.StringIO(state_page_html), parser)
+
+	state_map_image_link = '/html/body/img/@src'
+
+	state_map_image = tree.xpath(state_map_image_link)
+
+
+	print "STATE MAP IMAGE LINK %s" % 'http://quickfacts.census.gov%s' % state_map_image[0]
+
+	url = 'http://quickfacts.census.gov%s' % state_map_image[0]
+	image_response = urllib2.urlopen(url).read()
+
+	img_temp = NamedTemporaryFile(delete=True)
+
+	img_temp.write(image_response)
+
+	state_object.state_map.save('tmpimage.gif', File(img_temp))
+
+		# img = StringIO.StringIO(image_response)
+		#img = Image.open(StringIO.StringIO(image_response.content))
+
+		# image_file = open('temp.gif', 'wb')
+
+		# for block in image_response.iter_content(1024):
+		# 	image_file.write(block)
+
+
+
+	# image = urllib.URLopener()
+	
+	# 	f = open(StringIO.StringIO(), 'wb')
+	#     f.write(chunk)
+	
+	# 	 = f
+	# 	state_object.save()
 
 # ([\d{0,2}])(,\d{0,3})
 

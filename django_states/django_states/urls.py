@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from main.views import GetPost, StatesListView, CityDetailView
+from django.conf import settings
 admin.autodiscover()
 
 
@@ -20,3 +21,11 @@ urlpatterns = patterns('',
 	url(r'^city_search/$', 'main.views.city_search'),
 	url(r'^city_create/$', 'main.views.city_create'),
 )
+
+
+if settings.DEBUG:
+    urlpatterns = patterns('',
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
+    url(r'', include('django.contrib.staticfiles.urls')),
+) + urlpatterns
