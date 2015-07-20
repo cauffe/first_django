@@ -4,6 +4,8 @@ from django.db import models
 class State(models.Model):
     name = models.CharField(max_length=100, unique=True)
     abbreviation = models.CharField(max_length=2, null=True)
+    population = models.CharField(max_length=20, null=True)
+    state_map = models.ImageField(upload_to='state_map')
 
     def __unicode__(self):
         return self.name

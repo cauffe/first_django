@@ -77,7 +77,9 @@ for link in links:
 
 	state_map_link_xpath = '//*[@id="collapseGovernment"]/div/ul/li[2]/div/a/@href'
 	state_map_link = tree.xpath(state_map_link_xpath)
-	print state_map_link
+	print state_map_link[0]
+
+	state_page = urllib.urlopen("http://www.50states.com%s" % link)
 
 # ([\d{0,2}])(,\d{0,3})
 
