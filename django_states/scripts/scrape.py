@@ -14,7 +14,6 @@ sys.path.append("..")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_states.settings")
 
 from main.models import State, StateCapital
-from django.core.files.base import ContentFile
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 #result = urllib.urlopen("http://164.100.47.132/LssNew/Members/Alphabaticallist.aspx")
@@ -43,7 +42,7 @@ links = [html for html in filtered_html3 if 'htm' in html]
 print links
 
 for link in links:
-	state_name_pattern = "(?<=/)[^}]*(?=.htm)"
+	state_name_pattern = "(?<=\W)[^.]*(?=.htm)"
 
 	state_name_search = re.search(state_name_pattern, link)
 
